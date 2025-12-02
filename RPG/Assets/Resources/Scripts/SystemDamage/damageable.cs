@@ -7,6 +7,7 @@ public class damageable : MonoBehaviour {
 
     public DeathLoader deathLoader;
     public GameObject Fade;
+    private float acumuladorCura = 0f;
 
     // Variável para definir a saúde máxima
     public int maxHealth;
@@ -164,15 +165,54 @@ public class damageable : MonoBehaviour {
         currentHealth = maxHealth; // Redefine a saúde
     }
 
-    // Função para definir a saúde com um valor específico
-    public void SetHealth(int amount)
+    /* // Função para definir a saúde com um valor específico
+     public void SetHealth(int amount)
+     {
+         currentHealth = (currentHealth + amount); // Aumenta a saúde
+         if (currentHealth >= maxHealth) // Garante que a saúde não ultrapasse o máximo
+         {
+             currentHealth = maxHealth;
+         }
+
+     } */
+
+    // Adicione este método dentro da sua classe damageable
+    public void Heal(int healAmount)
     {
-        currentHealth = (currentHealth + amount); // Aumenta a saúde
-        if (currentHealth >= maxHealth) // Garante que a saúde não ultrapasse o máximo
+        // Se o personagem já estiver morto, não faz nada
+        if (isDead)
+            return;
+
+        // Adiciona a quantidade de cura à vida atual
+        currentHealth += healAmount;
+
+        // Garante que a vida não ultrapasse o valor máximo
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
 
+        // ATUALIZA A BARRA DE VIDA (Importante!)
+        if (barraDeVida != null)
+        {
+            this.barraDeVida.vidaAtual = currentHealth;
+        }
+
+        Debug.Log("Personagem curado em " + healAmount + ". Vida atual: " + currentHealth);
+    }
+
+    public void Curar(float quantidade)
+    {
+        // Soma a fração de cura (ex: 0.05 por frame)
+        acumuladorCura += quantidade;
+
+        // Verifica se já juntou pelo menos 1 ponto de vida inteiro
+        if (acumuladorCura >= 1f)
+        {
+            int curaInteira = (int)acumuladorCura; // Pega a parte inteira (ex: 1.2 vira 1)
+            Heal(curaInteira);                     // Usa o seu método Heal existente
+            acumuladorCura -= curaInteira;         // Mantém o resto (o 0.2) para a próxima vez
+        }
     }
 
     // Função para obter a saúde atual
@@ -205,10 +245,8 @@ public class damageable : MonoBehaviour {
                     transformacao.SetCurrentEnergy(100f);
                 }
 
-            }else{
             }
             
-        }else{
         }
     }
 

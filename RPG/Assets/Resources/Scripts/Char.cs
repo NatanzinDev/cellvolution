@@ -18,6 +18,11 @@ public class Char : MonoBehaviour
 
     private Enemy inimigos;
 
+    //Teste de cura
+    [Header("Regeneração de Vida")]
+    public bool regenerarVida = true;
+    public float vidaPorSegundo = 0.1f; // Quantos de vida recupera por segundo
+
     [Header("Imports")]
     public Camera cam; // Referência para a câmera
     public TextoQuest texto; // Referência para o texto da quest
@@ -387,6 +392,18 @@ public class Char : MonoBehaviour
                 }
             }
         }
+
+        // Lógica de Regeneração Passiva
+        if (regenerarVida && health < damageable.maxHealth && damageable.barraDeEnergia.vidaAtual > 0)
+        {
+            // Chama o novo método Curar passando o valor fracionado pelo tempo
+            if (damageable != null)
+            {
+                damageable.Curar(vidaPorSegundo * Time.deltaTime);
+            }
+        }
+        // Atualiza a visualização da variável health local para bater com a do damageable
+        health = damageable.GetHealth();
     }
 
     public bool GetCanControl()
