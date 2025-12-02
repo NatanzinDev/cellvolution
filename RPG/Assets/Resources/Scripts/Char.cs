@@ -280,78 +280,88 @@ public class Char : MonoBehaviour
         //        SetSpeedL(1);
         //    }
 
-            //// Verifica se as teclas foram soltas para parar o movimento
-            //if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))//w
-            //{
-            //    transform.position += new Vector3(0,0,0);
-            //    SetSpeedB(0);
-            //}
-            //else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) //D
-            //{
-            //    transform.position += new Vector3(0,0,0);
-            //    SetSpeedR(0);    
-            //}
-            //else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) //S
-            //{
-            //    transform.position += new Vector3(0,0,0);                   
-            //    SetSpeedF(0);
-            //}
-            //else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) //A
-            //{
-            //    transform.position += new Vector3(0,0,0);                    
-            //    SetSpeedL(0);
-            //}
+        //// Verifica se as teclas foram soltas para parar o movimento
+        //if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))//w
+        //{
+        //    transform.position += new Vector3(0,0,0);
+        //    SetSpeedB(0);
+        //}
+        //else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) //D
+        //{
+        //    transform.position += new Vector3(0,0,0);
+        //    SetSpeedR(0);    
+        //}
+        //else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) //S
+        //{
+        //    transform.position += new Vector3(0,0,0);                   
+        //    SetSpeedF(0);
+        //}
+        //else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) //A
+        //{
+        //    transform.position += new Vector3(0,0,0);                    
+        //    SetSpeedL(0);
+        //}
 
-            // Verifica se o personagem pode ser controlado
-            if (canControl == true)
-            {
-            // Verifica as teclas pressionadas para movimento
-            if ((useWASD && Input.GetKey(KeyCode.W)) || (!useWASD && Input.GetKey(KeyCode.UpArrow)))
+        // Verifica se o personagem pode ser controlado
+        if (canControl == true)
+        {
+            // --- MOVIMENTAÇÃO (WASD ou Setas) ---
+
+            // Para a Frente (W ou Seta Cima)
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
                 SetSpeedF(0);
                 transform.position += new Vector3(0, Speed, 0);
                 SetSpeedB(1);
             }
-            else if ((useWASD && Input.GetKey(KeyCode.D)) || (!useWASD && Input.GetKey(KeyCode.RightArrow)))
+            // Para a Direita (D ou Seta Direita)
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 SetSpeedL(0);
                 transform.position += new Vector3(Speed, 0, 0);
                 SetSpeedR(1);
             }
-            else if ((useWASD && Input.GetKey(KeyCode.S)) || (!useWASD && Input.GetKey(KeyCode.DownArrow)))
+            // Para Trás (S ou Seta Baixo)
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
                 transform.position += new Vector3(0, -Speed, 0);
                 SetSpeedF(1);
             }
-            else if ((useWASD && Input.GetKey(KeyCode.A)) || (!useWASD && Input.GetKey(KeyCode.LeftArrow)))
+            // Para a Esquerda (A ou Seta Esquerda)
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 transform.position += new Vector3(-Speed, 0, 0);
                 SetSpeedL(1);
             }
 
-            // Verifica se as teclas foram soltas para parar o movimento
-            if ((useWASD && Input.GetKeyUp(KeyCode.W)) || (!useWASD && Input.GetKeyUp(KeyCode.UpArrow)))
+            // --- PARAR MOVIMENTAÇÃO (Soltar teclas) ---
+
+            // Soltou Frente
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
             {
                 transform.position += new Vector3(0, 0, 0);
                 SetSpeedB(0);
             }
-            else if ((useWASD && Input.GetKeyUp(KeyCode.D)) || (!useWASD && Input.GetKeyUp(KeyCode.RightArrow)))
+            // Soltou Direita
+            else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
             {
                 transform.position += new Vector3(0, 0, 0);
                 SetSpeedR(0);
             }
-            else if ((useWASD && Input.GetKeyUp(KeyCode.S)) || (!useWASD && Input.GetKeyUp(KeyCode.DownArrow)))
+            // Soltou Trás
+            else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
             {
                 transform.position += new Vector3(0, 0, 0);
                 SetSpeedF(0);
             }
-            else if ((useWASD && Input.GetKeyUp(KeyCode.A)) || (!useWASD && Input.GetKeyUp(KeyCode.LeftArrow)))
+            // Soltou Esquerda
+            else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
             {
                 transform.position += new Vector3(0, 0, 0);
                 SetSpeedL(0);
             }
         }
-    
+
 
         // Verifica se há uma quest em andamento
         if (quest != null)
